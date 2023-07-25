@@ -1,27 +1,98 @@
 package indigo
 
-fun main() {
+import kotlin.ArithmeticException
 
-    val ranks = setOf("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
-    val suits = setOf("♦", "♥", "♠", "♣")
-    val deckCards: Set<String> = cartesianProductOfSets(ranks, suits)
+const val CARDS_NUM = 52
 
-    println(ranks.joinToString(" "))
-    println(suits.joinToString(" "))
-    println(deckCards.joinToString(" "))
+enum class Ranks(val rank: String) {
+    ACE("A"),
+    TWO("2"),
+    THREE("3"),
+    FOUR("4"),
+    FIVE("5"),
+    SIX("6"),
+    SEVEN("7"),
+    EIGHT("8"),
+    NINE("9"),
+    TEN("10"),
+    JACK("J"),
+    QUEEN("Q"),
+    KING("K"),
+}
+
+enum class Suits(val suit: String) {
+    DIAMONDS("♦"),
+    HEARTS("♥"),
+    SPADES("♠"),
+    CLUBS("♣"),
 }
 
 
-fun cartesianProductOfSets(
-    set1: Set<String>,
-    set2: Set<String>,
-): Set<String> {
+class Deck {
 
-    val resultSet = mutableSetOf<String>()
-    for (i in set1) {
-        for (j in set2) {
-            resultSet.add("$i$j")
+    private val initialCardDeck: List<String> =
+        Ranks.values().flatMap { rank ->
+            Suits.values().map { suit ->
+                "${rank.rank}${suit.suit}"
+            }
+        }
+
+    private var cardDeck: List<String> = initialCardDeck
+
+    fun reset() {
+        cardDeck = initialCardDeck
+        println("Card deck is reset.")
+    }
+
+    fun shuffle() {
+        cardDeck = cardDeck.shuffled()
+        println("Card deck is shuffled.")
+    }
+
+    fun get() {
+
+        println("Number of cards:")
+        val quantity: Int
+
+        try {
+            quantity = readln().toInt()
+            if (quantity !in 1..CARDS_NUM) {
+                throw ArithmeticException()
+            }
+        } catch (e: ArithmeticException) {
+            println("Invalid number of cards.")
+            return
+        }
+
+        if (quantity > cardDeck.size) {
+            println("The remaining cards are insufficient to meet the request.")
+            return
+        }
+
+        println(
+            cardDeck.take(quantity).joinToString(" ")
+        )
+        cardDeck = cardDeck.drop(quantity)
+    }
+}
+
+
+fun main() {
+
+    val cardDeck = Deck()
+
+    while (true) {
+        println("Choose an action (reset, shuffle, get, exit):")
+        when (readln().lowercase()) {
+            "reset" -> cardDeck.reset()
+            "shuffle" -> cardDeck.shuffle()
+            "get" -> cardDeck.get()
+            "exit" -> {
+                println("Bye")
+                break
+            }
+
+            else -> println("Wrong action.")
         }
     }
-    return resultSet
 }
