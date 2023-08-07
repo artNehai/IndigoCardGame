@@ -1,8 +1,5 @@
 package indigo
 
-import indigo.util.*
-
-
 fun main() {
 
     println("Indigo Card Game")
@@ -26,20 +23,5 @@ fun main() {
     }
 
     play(cardDeck, isUserFirst)
-
-    while (true) {
-        println("Choose an action (reset, shuffle, get, exit):")
-        when (readln().lowercase()) {
-            "reset" -> cardDeck.reset()
-            "shuffle" -> cardDeck.shuffle()
-            "get" -> cardDeck.getCards()
-            "exit" -> {
-                println("Bye")
-                break
-            }
-
-            else -> println("Wrong action.")
-        }
-    }
 }
 
