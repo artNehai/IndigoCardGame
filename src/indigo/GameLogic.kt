@@ -6,7 +6,7 @@ const val USER_ID = 1
 const val COMPUTER_ID = 2
 
 
-fun play(cardDeck: Deck, isUserFirst: Boolean) {
+fun startGame(cardDeck: Deck, isUserFirst: Boolean) {
 
     print("Initial cards on the table: ")
     println(

@@ -22,6 +22,6 @@ fun main() {
         }
     }
 
-    play(cardDeck, isUserFirst)
+    startGame(cardDeck, isUserFirst)
 }
 
