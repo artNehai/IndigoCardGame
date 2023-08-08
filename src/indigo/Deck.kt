@@ -1,23 +1,19 @@
 package indigo
 
-const val INITIAL_CARDS_ON_TABLE = 4
-const val CARDS_IN_HAND = 6
-
-
 class Deck {
 
-    private val cardDeck: MutableList<String> =
+    private val cardDeck: MutableList<Card> =
         Ranks.values().flatMap { rank ->
             Suits.values().map { suit ->
-                "$rank$suit"
+                Card(rank, suit)
             }
         }.shuffled().toMutableList()
 
-    var cardsOnTable: List<String> = pullCards(INITIAL_CARDS_ON_TABLE)
+    var cardsOnTable: List<Card> = pullCards(INITIAL_CARDS_ON_TABLE)
         private set
 
-    private val playersHand: MutableList<String> = pullCards(CARDS_IN_HAND).toMutableList()
-    private val computersHand: MutableList<String> = pullCards(CARDS_IN_HAND).toMutableList()
+    private val playersHand: MutableList<Card> = pullCards(CARDS_IN_HAND).toMutableList()
+    private val computersHand: MutableList<Card> = pullCards(CARDS_IN_HAND).toMutableList()
 
     val handsIsNotEmpty: Boolean
         get() = playersHand.isNotEmpty() || computersHand.isNotEmpty()
@@ -26,7 +22,7 @@ class Deck {
         get() = playersHand.size
 
 
-    private fun pullCards(quantity: Int): List<String> {
+    private fun pullCards(quantity: Int): List<Card> {
         val cardsList = cardDeck.take(quantity)
         cardDeck.removeAll(cardsList)
 
@@ -41,8 +37,8 @@ class Deck {
         println()
     }
 
-    fun playCard(index: Int, contenderId: Int): String {
-        val hand: MutableList<String> =
+    fun playCard(index: Int, contenderId: Int): Card {
+        val hand: MutableList<Card> =
             when (contenderId) {
                 USER_ID -> playersHand
                 COMPUTER_ID -> computersHand
