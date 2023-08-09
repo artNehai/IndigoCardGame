@@ -1,12 +1,12 @@
 package indigo
 
 class Computer(
-    private val cardDeck: Deck
-) : Contender() {
+    cardDeck: Deck,
+) : Contender(cardDeck) {
 
     fun makeMove() {
-        val cardPlayed = cardDeck.playCard(0, COMPUTER_ID)
-        println("Computer plays $cardPlayed")
-        println()
+        val card = hand[0]
+        playCard(card)
+        println("Computer plays $card")
     }
 }

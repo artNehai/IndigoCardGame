@@ -3,15 +3,15 @@ package indigo
 import kotlin.system.exitProcess
 
 class Player(
-    private val cardDeck: Deck
-) : Contender() {
+    cardDeck: Deck
+) : Contender(cardDeck) {
 
     fun makeMove() {
-        cardDeck.printHand()
+        printHand()
 
-        var cardPlayed: Int
+        var cardPlayed: Card
         while (true) {
-            println("Choose a card to play (1-${cardDeck.playersHandSize}):")
+            println("Choose a card to play (1-${hand.size}):")
 
             val input = readln().lowercase()
             if (input == "exit") {
@@ -20,17 +20,16 @@ class Player(
             }
 
             try {
-                cardPlayed = input.toInt()
+                val cardIndex = input.toInt() - 1
+                cardPlayed = hand[cardIndex]
+                break
             } catch (e: NumberFormatException) {
                 continue
-            }
-
-            if (cardPlayed in 1..cardDeck.playersHandSize) {
-                break
+            } catch (e: IndexOutOfBoundsException) {
+                continue
             }
         }
-        println()
 
-        cardDeck.playCard(cardPlayed - 1, USER_ID)
+        playCard(cardPlayed)
     }
 }

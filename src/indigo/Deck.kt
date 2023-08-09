@@ -9,52 +9,39 @@ class Deck {
             }
         }.shuffled().toMutableList()
 
-    var cardsOnTable: List<Card> = pullCards(INITIAL_CARDS_ON_TABLE)
-        private set
+    private val cardsOnTable: MutableList<Card> = pullCards(INITIAL_CARDS_ON_TABLE)
 
-    private val playersHand: MutableList<Card> = pullCards(CARDS_IN_HAND).toMutableList()
-    private val computersHand: MutableList<Card> = pullCards(CARDS_IN_HAND).toMutableList()
+    val initialTable: String = cardsOnTable.joinToString(" ")
 
-    val handsIsNotEmpty: Boolean
-        get() = playersHand.isNotEmpty() || computersHand.isNotEmpty()
+    val topCard: Card
+        get() = cardsOnTable.last()
 
-    val playersHandSize: Int
-        get() = playersHand.size
+    val tableSize: Int
+        get() = cardsOnTable.size
+
+    val tableIsEmpty: Boolean
+        get() = cardsOnTable.isEmpty()
 
 
-    private fun pullCards(quantity: Int): List<Card> {
-        val cardsList = cardDeck.take(quantity)
+    internal fun pullCards(quantity: Int): MutableList<Card> {
+        val cardsList = cardDeck.take(quantity).toMutableList()
         cardDeck.removeAll(cardsList)
 
         return cardsList
     }
 
-    fun printHand() {
-        print("Cards in hand: ")
-        for (i in playersHand.indices) {
-            print("${i + 1})" + playersHand[i] + " ")
+    fun play(cardPlayed: Card): List<Card> {
+        val topCard = cardsOnTable.lastOrNull()
+        cardsOnTable.add(cardPlayed)
+
+        if (cardPlayed.suit == topCard?.suit ||
+            cardPlayed.rank == topCard?.rank
+        ) {
+            val cardsWon = cardsOnTable.toList()
+            cardsOnTable.clear()
+            return cardsWon
+        } else {
+            return emptyList()
         }
-        println()
-    }
-
-    fun playCard(index: Int, contenderId: Int): Card {
-        val hand: MutableList<Card> =
-            when (contenderId) {
-                USER_ID -> playersHand
-                COMPUTER_ID -> computersHand
-                else -> throw IllegalArgumentException("There are only two possible contenders: user, computer")
-            }
-
-        val card = hand[index]
-        cardsOnTable += card
-        hand.removeAt(index)
-
-        if (hand.isEmpty()) {
-            hand.addAll(
-                pullCards(CARDS_IN_HAND)
-            )
-        }
-
-        return card
     }
 }
