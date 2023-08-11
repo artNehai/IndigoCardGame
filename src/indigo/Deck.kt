@@ -13,8 +13,8 @@ class Deck {
 
     val initialTable: String = cardsOnTable.joinToString(" ")
 
-    val topCard: Card
-        get() = cardsOnTable.last()
+    val topCard: Card?
+        get() = cardsOnTable.lastOrNull()
 
     val tableSize: Int
         get() = cardsOnTable.size
@@ -33,16 +33,12 @@ class Deck {
     }
 
     fun play(cardPlayed: Card): List<Card> {
-        val topCard = cardsOnTable.lastOrNull()
-        cardsOnTable.add(cardPlayed)
-
-        if (cardPlayed.suit == topCard?.suit ||
-            cardPlayed.rank == topCard?.rank
-        ) {
-            val cardsWon = cardsOnTable.toList()
+        if (checkIfWinnable(cardPlayed)) {
+            val cardsWon = cardsOnTable + cardPlayed
             cardsOnTable.clear()
             return cardsWon
         } else {
+            cardsOnTable.add(cardPlayed)
             return emptyList()
         }
     }
@@ -51,5 +47,9 @@ class Deck {
         (lastWinner ?: firstToMakeMove)
             .updateScore(cardsOnTable)
         cardsOnTable.clear()
+    }
+
+    fun checkIfWinnable(card: Card): Boolean {
+        return card.suit == topCard?.suit || card.rank == topCard?.rank
     }
 }
