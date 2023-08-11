@@ -3,7 +3,7 @@ package indigo
 class Deck {
 
     private val cardDeck: MutableList<Card> =
-        Ranks.values().flatMap { rank ->
+        Rank.values().flatMap { rank ->
             Suit.values().map { suit ->
                 Card(rank, suit)
             }
