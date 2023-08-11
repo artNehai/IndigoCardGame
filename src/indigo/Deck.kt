@@ -19,8 +19,10 @@ class Deck {
     val tableSize: Int
         get() = cardsOnTable.size
 
-    val tableIsEmpty: Boolean
+    val isTableEmpty: Boolean
         get() = cardsOnTable.isEmpty()
+
+    internal var lastWinner: Contender? = null
 
 
     internal fun pullCards(quantity: Int): MutableList<Card> {
@@ -43,5 +45,11 @@ class Deck {
         } else {
             return emptyList()
         }
+    }
+
+    fun distributeRemainingTable(firstToMakeMove: Contender) {
+        (lastWinner ?: firstToMakeMove)
+            .updateScore(cardsOnTable)
+        cardsOnTable.clear()
     }
 }

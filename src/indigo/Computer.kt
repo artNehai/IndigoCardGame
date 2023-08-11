@@ -5,8 +5,13 @@ class Computer(
 ) : Contender(cardDeck) {
 
     fun makeMove() {
+        print("Computer's hand: ")
+        for (i in hand.indices) {
+            print("${i + 1})" + hand[i] + " ")
+        }
+        println()
         val card = hand[0]
-        playCard(card)
         println("Computer plays $card")
+        playCard(card)
     }
 }

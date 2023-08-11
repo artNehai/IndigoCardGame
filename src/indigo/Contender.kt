@@ -17,11 +17,13 @@ open class Contender(
     val cardsWonTally: Int
         get() = cardsWon.size
 
+
     protected fun playCard(card: Card) {
         val gain: List<Card> = cardDeck.play(card)
+
         if (gain.isNotEmpty()) {
             println("${this.javaClass.simpleName} wins cards")
-            cardsWon.addAll(gain)
+            cardDeck.lastWinner = this
             updateScore(gain)
         }
 
@@ -41,11 +43,16 @@ open class Contender(
         println()
     }
 
-    private fun updateScore(gain: List<Card>) {
+    internal fun updateScore(
+        gain: List<Card> = emptyList(),
+        points: Int = 0
+    ) {
         for (card in gain) {
-            if (card.rank in ranksToPoints) {
-                score += ranksToPoints[card.rank]!!
+            if (card.rank in ranksToPointsMap) {
+                score += ranksToPointsMap[card.rank]!!
             }
         }
+        cardsWon.addAll(gain)
+        score += points
     }
 }
