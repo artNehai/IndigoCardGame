@@ -1,6 +1,6 @@
 package indigo
 
-enum class Ranks(private val rank: String) {
+enum class Rank(private val rank: String) {
     ACE("A"),
     TWO("2"),
     THREE("3"),

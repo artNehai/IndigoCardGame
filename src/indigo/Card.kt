@@ -1,8 +1,8 @@
 package indigo
 
 class Card(
-    val rank: Ranks,
-    val suit: Suits,
+    val rank: Rank,
+    val suit: Suit,
 ) {
     override fun toString() = "$rank$suit"
 }

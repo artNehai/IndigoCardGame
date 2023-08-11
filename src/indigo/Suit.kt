@@ -1,6 +1,6 @@
 package indigo
 
-enum class Suits(private val suit: String) {
+enum class Suit(private val suit: String) {
     DIAMONDS("♦"),
     HEARTS("♥"),
     SPADES("♠"),

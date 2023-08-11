@@ -4,7 +4,7 @@ class Deck {
 
     private val cardDeck: MutableList<Card> =
         Ranks.values().flatMap { rank ->
-            Suits.values().map { suit ->
+            Suit.values().map { suit ->
                 Card(rank, suit)
             }
         }.shuffled().toMutableList()
