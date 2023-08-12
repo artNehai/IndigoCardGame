@@ -4,12 +4,12 @@ const val INITIAL_CARDS_ON_TABLE = 4
 const val CARDS_IN_HAND = 6
 const val FINAL_THREE_POINTS = 3
 
-val ranksToPointsMap: Map<Ranks, Int> = mapOf(
-    Ranks.ACE to 1,
-    Ranks.KING to 1,
-    Ranks.QUEEN to 1,
-    Ranks.JACK to 1,
-    Ranks.TEN to 1,
+val ranksToPointsMap: Map<Rank, Int> = mapOf(
+    Rank.ACE to 1,
+    Rank.KING to 1,
+    Rank.QUEEN to 1,
+    Rank.JACK to 1,
+    Rank.TEN to 1,
 )
 
 

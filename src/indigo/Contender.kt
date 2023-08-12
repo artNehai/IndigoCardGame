@@ -48,9 +48,7 @@ open class Contender(
         points: Int = 0
     ) {
         for (card in gain) {
-            if (card.rank in ranksToPointsMap) {
-                score += ranksToPointsMap[card.rank]!!
-            }
+            score += ranksToPointsMap[card.rank] ?: 0
         }
         cardsWon.addAll(gain)
         score += points

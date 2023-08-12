@@ -5,8 +5,8 @@ class Computer(
 ) : Contender(cardDeck) {
 
     fun makeMove() {
-        // The following print is used to validate the tests
-        // println(hand.joinToString(" "))
+         // The following print is used to validate the tests
+         println(hand.joinToString(" "))
 
         val candidateCards: List<Card> =
             hand.filter { cardDeck.checkIfWinnable(it) }
