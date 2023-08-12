@@ -6,7 +6,7 @@ class Computer(
 
     fun makeMove() {
          // The following print is used to validate the tests
-         println(hand.joinToString(" "))
+         // println(hand.joinToString(" "))
 
         val candidateCards: List<Card> =
             hand.filter { cardDeck.checkIfWinnable(it) }

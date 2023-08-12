@@ -16,9 +16,6 @@ class Deck {
     val topCard: Card?
         get() = cardsOnTable.lastOrNull()
 
-    val tableSize: Int
-        get() = cardsOnTable.size
-
     val isTableEmpty: Boolean
         get() = cardsOnTable.isEmpty()
 
@@ -51,5 +48,16 @@ class Deck {
 
     fun checkIfWinnable(card: Card): Boolean {
         return card.suit == topCard?.suit || card.rank == topCard?.rank
+    }
+
+    fun printTableStatus() {
+        println()
+        println(
+            if (cardsOnTable.isEmpty()) {
+                "No cards on the table"
+            } else {
+                "${cardsOnTable.size} cards on the table, and the top card is $topCard"
+            }
+        )
     }
 }

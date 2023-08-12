@@ -28,7 +28,7 @@ fun startGame(
 
     var isPlayersTurn = isPlayerFirst
     while (player.handIsNotEmpty || computer.handIsNotEmpty) {
-        printTableStatus(cardDeck)
+        cardDeck.printTableStatus()
         if (isPlayersTurn) {
             player.makeMove()
             isPlayersTurn = false
@@ -42,22 +42,11 @@ fun startGame(
         }
     }
 
-    printTableStatus(cardDeck)
+    cardDeck.printTableStatus()
     cardDeck.distributeRemainingTable(firstToMakeMove)
     assignFinalPoints(player, computer, firstToMakeMove)
     printScoreAndCardsWon(player, computer)
     println("Game Over")
-}
-
-fun printTableStatus(cardDeck: Deck) {
-    println()
-    println(
-        if (cardDeck.isTableEmpty) {
-            "No cards on the table"
-        } else {
-            "${cardDeck.tableSize} cards on the table, and the top card is ${cardDeck.topCard}"
-        }
-    )
 }
 
 fun printScoreAndCardsWon(player: Player, computer: Computer) {
