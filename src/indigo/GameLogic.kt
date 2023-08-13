@@ -63,5 +63,5 @@ fun assignFinalPoints(
         player.cardsWonTally > computer.cardsWonTally -> player
         player.cardsWonTally < computer.cardsWonTally -> computer
         else -> firstToMakeMove
-    }.updateScore(points = FINAL_THREE_POINTS)
+    }.updateScore(FINAL_THREE_POINTS)
 }

@@ -43,14 +43,14 @@ open class Contender(
         println()
     }
 
-    internal fun updateScore(
-        gain: List<Card> = emptyList(),
-        points: Int = 0
-    ) {
+    protected fun updateScore(gain: List<Card>) {
         for (card in gain) {
             score += ranksToPointsMap[card.rank] ?: 0
         }
         cardsWon.addAll(gain)
+    }
+
+    internal fun updateScore(points: Int) {
         score += points
     }
 }
