@@ -10,6 +10,14 @@ val ranksToPointsMap: Map<Rank, Int> = mapOf(
     Rank.QUEEN to 1,
     Rank.JACK to 1,
     Rank.TEN to 1,
+    Rank.NINE to 0,
+    Rank.EIGHT to 0,
+    Rank.SEVEN to 0,
+    Rank.SIX to 0,
+    Rank.FIVE to 0,
+    Rank.FOUR to 0,
+    Rank.THREE to 0,
+    Rank.TWO to 0,
 )
 
 
