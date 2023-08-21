@@ -1,23 +1,25 @@
 package indigo
 
+import indigo.Rank.*
+
 const val INITIAL_CARDS_ON_TABLE = 4
 const val CARDS_IN_HAND = 6
 const val FINAL_THREE_POINTS = 3
 
 val ranksToPointsMap: Map<Rank, Int> = mapOf(
-    Rank.ACE to 1,
-    Rank.KING to 1,
-    Rank.QUEEN to 1,
-    Rank.JACK to 1,
-    Rank.TEN to 1,
-    Rank.NINE to 0,
-    Rank.EIGHT to 0,
-    Rank.SEVEN to 0,
-    Rank.SIX to 0,
-    Rank.FIVE to 0,
-    Rank.FOUR to 0,
-    Rank.THREE to 0,
-    Rank.TWO to 0,
+    ACE to 1,
+    KING to 1,
+    QUEEN to 1,
+    JACK to 1,
+    TEN to 1,
+    NINE to 0,
+    EIGHT to 0,
+    SEVEN to 0,
+    SIX to 0,
+    FIVE to 0,
+    FOUR to 0,
+    THREE to 0,
+    TWO to 0,
 )
 
 
