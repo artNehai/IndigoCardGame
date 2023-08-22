@@ -5,11 +5,11 @@ class Computer(
 ) : Contender(cardDeck) {
 
     fun makeMove() {
-         // The following print is used to validate the tests
-         // println(hand.joinToString(" "))
+        // The following print is used to validate the tests
+        // println(hand.joinToString(" "))
 
         val candidateCards: List<Card> =
-            hand.filter { cardDeck.checkIfWinnable(it) }
+            hand.filter(cardDeck::checkIfWinnable)
 
         val cardToPlay: Card =
             when {
@@ -23,23 +23,18 @@ class Computer(
 
                 cardDeck.isTableEmpty || candidateCards.isEmpty() -> {
                     val cardsWithSameSuit: List<Card> = hand.filter { card ->
-                        hand.count {
-                            it.suit == card.suit
+                        hand.count { anotherCard ->
+                            anotherCard.suit == card.suit
                         } > 1
                     }
                     val cardsWithSameRank: List<Card> = hand.filter { card ->
-                        hand.count {
-                            it.rank == card.rank
+                        hand.count { anotherCard ->
+                            anotherCard.rank == card.rank
                         } > 1
                     }
 
-                    if (cardsWithSameSuit.isNotEmpty()) {
-                        cardsWithSameSuit.random()
-                    } else if (cardsWithSameRank.isNotEmpty()) {
-                        cardsWithSameRank.random()
-                    } else {
-                        hand.random()
-                    }
+                    listOf(cardsWithSameSuit, cardsWithSameRank, hand)
+                        .first { it.isNotEmpty() }.random()
                 }
 
                 candidateCards.size >= 2 -> {
@@ -50,13 +45,8 @@ class Computer(
                         card.rank == cardDeck.topCard?.rank
                     }
 
-                    if (cardsWithSameSuitAsTop.size >= 2) {
-                        cardsWithSameSuitAsTop.random()
-                    } else if (cardsWithSameRankAsTop.size >= 2) {
-                        cardsWithSameRankAsTop.random()
-                    } else {
-                        candidateCards.random()
-                    }
+                    listOf(cardsWithSameSuitAsTop, cardsWithSameRankAsTop, hand)
+                        .first { it.size >= 2 }.random()
                 }
 
                 else -> {
